@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#11100e">
+<title>NOCTURNE | Cocktail Atlas</title>
+<meta name="description" content="NOCTURNEは、カクテル名・ベースのお酒・手持ちの材料から一杯を探せる無料のカクテル図鑑です。">
+<style>
+:root{--bg:#11100e;--surface:#1b1915;--surface2:#242119;--gold:#c9a86a;--pale:#ead9b5;--text:#f2eee6;--muted:#aaa397;--line:#40392d;--green:#9bb69b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#403522 0,#1a1712 34%,var(--bg) 72%);color:var(--text);font-family:system-ui,-apple-system,"Yu Gothic",Meiryo,sans-serif}
+header{height:76px;border-bottom:1px solid #ffffff18;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1180px)/2))}
+.logo{font:24px Georgia,serif;letter-spacing:.24em;color:var(--pale)}.logo small{display:block;font:9px system-ui;letter-spacing:.32em;color:var(--muted);margin-top:4px}
+nav{display:flex;gap:24px}nav a{font-size:11px;letter-spacing:.12em;color:var(--muted);text-decoration:none}nav a:hover{color:var(--pale)}
+main{max-width:1180px;margin:auto;padding:38px 22px 80px}.hero{text-align:center;padding:30px 0 40px}.eyebrow{font-size:10px;letter-spacing:.34em;color:var(--gold)}h1{font:clamp(42px,8vw,76px)/1 Georgia,serif;font-weight:400;letter-spacing:.1em;color:var(--pale);margin:18px 0}.hero p{font:14px/2 Georgia,serif;color:var(--muted);margin:0}
+.toolbar{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;background:#171511;border:1px solid var(--line);padding:15px;margin-bottom:16px}
+input,select{width:100%;background:#100f0d;border:1px solid var(--line);color:var(--text);padding:13px;font:13px system-ui;min-width:0}input:focus,select:focus{outline:1px solid var(--gold);border-color:var(--gold)}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.mode{background:transparent;color:var(--muted);border:1px solid var(--line);padding:11px 17px;cursor:pointer;font-size:12px;letter-spacing:.06em}.mode.active{color:var(--pale);border-color:var(--gold);background:#c9a86a18}
+.panel{border:1px solid var(--line);background:linear-gradient(145deg,#201d17,#171511);padding:22px;margin:16px 0 28px}.panelhead{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.panel h2,.sectionhead h2{font:25px Georgia,serif;font-weight:400;color:var(--pale);margin:0 0 7px}.hint{font-size:11px;color:var(--muted);line-height:1.7;margin:0 0 17px}
+.ingredientlist{display:flex;flex-wrap:wrap;gap:8px}.ingredient{background:#12110f;border:1px solid var(--line);color:#d9d0c1;padding:8px 11px;font-size:11px;cursor:pointer}.ingredient.selected{border-color:var(--gold);background:#c9a86a20;color:var(--pale)}
+.actions{display:flex;gap:8px;align-items:center;margin-top:15px;flex-wrap:wrap}.goldbtn,.quietbtn{padding:10px 14px;cursor:pointer;font-size:11px;letter-spacing:.07em}.goldbtn{background:var(--gold);border:1px solid var(--gold);color:#17130c}.quietbtn{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.toggleline{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:15px}.toggleline label{display:flex;gap:6px;align-items:center}.toggleline input{width:auto;accent-color:var(--gold)}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;margin:36px 0 15px;gap:12px}.sectionhead h2{margin:0}.count{font-size:10px;color:var(--muted);letter-spacing:.1em}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{border:1px solid var(--line);background:linear-gradient(150deg,#211f1a,#171512);padding:18px;display:flex;flex-direction:column;min-height:250px}.card:hover{border-color:#92774c}.top{display:flex;justify-content:space-between;gap:8px}.card h3{font:22px Georgia,serif;font-weight:400;color:var(--pale);margin:0 0 4px}.jp{font-size:11px;color:var(--muted)}.tag{font-size:9px;letter-spacing:.1em;border:1px solid #665537;color:var(--gold);padding:5px 7px;height:max-content}.desc{font:italic 13px/1.7 Georgia,serif;color:#c7bdad;margin:15px 0}.pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}.pill{font-size:10px;color:#d6c9b2;background:#ffffff0a;padding:5px 7px}.meta{font-size:11px;line-height:1.9;color:var(--muted);margin-top:auto}.meta b{color:#e4d7c1;font-weight:500}.details{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}.details summary{font-size:11px;color:var(--gold);cursor:pointer}.details p{font-size:11px;line-height:1.9;color:#d0c7b9}.empty{grid-column:1/-1;text-align:center;padding:45px 15px;border:1px dashed var(--line);color:var(--muted);font-size:13px}
+.notice{border-left:2px solid var(--gold);padding:10px 13px;color:var(--muted);font-size:10px;line-height:1.8;margin-top:24px}
+footer{text-align:center;border-top:1px solid #ffffff18;padding:25px;color:#847d71;font-size:10px;letter-spacing:.1em}
+@media(max-width:850px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}}
+@media(max-width:560px){header{height:66px}nav{display:none}main{padding:24px 14px 60px}.cards{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar input{grid-column:auto}.panel{padding:16px}.sectionhead{align-items:start;flex-direction:column}}
+</style></head>
+<body>
+<header><div class="logo">NOCTURNE<small>COCKTAIL ATLAS</small></div><nav><a href="#find">SEARCH</a><a href="#reverse">BY INGREDIENT</a><a href="#atlas">ATLAS</a></nav></header>
+<main>
+<section class="hero"><div class="eyebrow">THE ART OF MIXING</div><h1>NOCTURNE</h1><p>一杯のお酒から、まだ知らない一杯へ。<br>探す。組み合わせる。新しいお気に入りに出会う。</p></section>
+<section id="find">
+<div class="toolbar">
+<input id="q" type="search" placeholder="カクテル名・材料・味わいで検索">
+<select id="base"><option value="">すべてのベース</option></select>
+<select id="taste"><option value="">すべての味わい</option></select>
+</div>
+<div class="modebar"><button class="mode active" data-mode="search">カクテルを探す</button><button class="mode" data-mode="reverse">材料から逆引き</button></div>
+<div class="panel" id="reverse" hidden>
+<div class="panelhead"><h2>Search by ingredients</h2><span class="count">YOUR BAR, YOUR CHOICE</span></div>
+<p class="hint">家にある材料を選んでね。選んだ材料を使うカクテルを検索するよ。</p>
+<div class="ingredientlist" id="ingredientList"></div>
+<div class="toggleline"><label><input type="radio" name="logic" value="any" checked> どれかを含む</label><label><input type="radio" name="logic" value="all"> 選んだ材料をすべて含む</label></div>
+<div class="actions"><button class="goldbtn" id="apply">この材料で探す</button><button class="quietbtn" id="reset">選択をリセット</button><span class="hint" id="selectedCount" style="margin:0"></span></div>
+</div></section>
+<section id="atlas"><div class="sectionhead"><h2>THE COCKTAIL ATLAS</h2><span class="count" id="count"></span></div><div class="cards" id="cards"></div>
+<div class="notice">掲載レシピは参考例です。カクテルには流派・バー・銘柄によるレシピの違いがあります。アルコールは20歳になってから、適量を楽しみましょう。飲酒運転は絶対にやめましょう。</div></section>
+</main><footer>NOCTURNE COCKTAIL ATLAS · FREE TO EXPLORE · DRINK RESPONSIBLY</footer>
+<script>
+const recipes=[
+["Gin & Tonic","ジントニック","ジン","爽やか","CLASSIC","ジュニパーの香りとトニックのほろ苦さ。バーの定番。",["ジン","トニックウォーター","ライム"],"ジン45ml / トニックウォーター適量 / ライム1/8個","氷を入れたグラスにジンを注ぎ、トニックウォーターで満たす。軽く一度混ぜ、ライムを添える。"],
+["Martini","マティーニ","ジン","ドライ","ICONIC","ジンとドライベルモットが織りなす、洗練されたショートカクテル。",["ジン","ドライベルモット","オリーブ"],"ジン60ml / ドライベルモット10ml / オリーブ1個","材料と氷をミキシンググラスでステア。冷やしたカクテルグラスに注ぎ、オリーブを飾る。"],
+["Gimlet","ギムレット","ジン","酸味","CLASSIC","ライムの鮮烈な酸味が際立つ、端正な一杯。",["ジン","ライムジュース","シュガーシロップ"],"ジン45ml / ライムジュース15ml / シュガーシロップ5ml","材料をシェーカーでシェイクし、冷やしたグラスに注ぐ。"],
+["Negroni","ネグローニ","ジン","ビター","BITTER","ジン、カンパリ、スイートベルモットを等量で合わせるイタリアの名作。",["ジン","カンパリ","スイートベルモット","オレンジ"],"ジン30ml / カンパリ30ml / スイートベルモット30ml","氷を入れたロックグラスに材料を注いでステア。オレンジを添える。"],
+["Tom Collins","トム・コリンズ","ジン","爽やか","CLASSIC","レモンの酸味とソーダの軽快さを楽しむロングカクテル。",["ジン","レモンジュース","シュガーシロップ","ソーダ"],"ジン45ml / レモンジュース20ml / シュガーシロップ10ml / ソーダ適量","ジン、レモン、シロップを氷と混ぜ、ソーダで満たす。"],
+["Moscow Mule","モスコミュール","ウォッカ","スパイシー","CLASSIC","ジンジャーの刺激とライムの香りが心地よい。",["ウォッカ","ジンジャーエール","ライム"],"ウォッカ45ml / ジンジャーエール適量 / ライム1/8個","氷を入れたグラスにウォッカとライムを入れ、ジンジャーエールで満たす。"],
+["Screwdriver","スクリュードライバー","ウォッカ","フルーティー","EASY","ウォッカとオレンジのシンプルで親しみやすい組み合わせ。",["ウォッカ","オレンジジュース"],"ウォッカ45ml / オレンジジュース適量","氷を入れたグラスにウォッカを注ぎ、ジュースで満たして混ぜる。"],
+["Cosmopolitan","コスモポリタン","ウォッカ","フルーティー","POPULAR","クランベリーの色と柑橘の香りが華やかな一杯。",["ウォッカ","ホワイトキュラソー","クランベリージュース","ライムジュース"],"シトラスウォッカ40ml / ホワイトキュラソー15ml / クランベリージュース30ml / ライムジュース10ml","材料をシェイクし、冷やしたカクテルグラスに注ぐ。"],
+["Black Russian","ブラックルシアン","ウォッカ","コーヒー","AFTER DINNER","ウォッカにコーヒーリキュールを合わせた濃厚な一杯。",["ウォッカ","コーヒーリキュール"],"ウォッカ40ml / コーヒーリキュール20ml","氷を入れたロックグラスに注ぎ、軽くステアする。"],
+["Margarita","マルガリータ","テキーラ","酸味","CLASSIC","テキーラ、オレンジリキュール、ライムの王道バランス。",["テキーラ","ホワイトキュラソー","ライムジュース","塩"],"テキーラ30ml / ホワイトキュラソー15ml / ライムジュース15ml","グラスの縁に塩をつける。材料をシェイクして注ぐ。"],
+["Paloma","パローマ","テキーラ","柑橘","POPULAR","グレープフルーツのほろ苦さがテキーラと好相性。",["テキーラ","グレープフルーツソーダ","ライム","塩"],"テキーラ45ml / グレープフルーツソーダ適量 / ライム少々","氷を入れたグラスにテキーラを注ぎ、ソーダで満たしてライムを添える。"],
+["Daiquiri","ダイキリ","ラム","酸味","CLASSIC","ラムの風味をライムが引き締めるキューバ生まれの名作。",["ホワイトラム","ライムジュース","シュガーシロップ"],"ホワイトラム45ml / ライムジュース20ml / シュガーシロップ5ml","材料をシェイクし、冷やしたカクテルグラスに注ぐ。"],
+["Mojito","モヒート","ラム","ミント","POPULAR","ミントとライムが香る、軽やかなロングカクテル。",["ホワイトラム","ミント","ライム","砂糖","ソーダ"],"ホワイトラム45ml / ライム1/2個 / 砂糖2tsp / ミント10枚 / ソーダ適量","グラスでライムと砂糖を軽くつぶし、ミント、ラム、氷を加えソーダで満たす。"],
+["Piña Colada","ピニャ・コラーダ","ラム","トロピカル","TROPICAL","パイナップルとココナッツの南国らしい味わい。",["ホワイトラム","パイナップルジュース","ココナッツミルク"],"ホワイトラム30ml / パイナップルジュース30ml / ココナッツミルク30ml","材料とクラッシュアイスをブレンダーで混ぜ、グラスに注ぐ。"],
+["Old Fashioned","オールドファッションド","ウイスキー","ビター","TIMELESS","ウイスキーの個性を砂糖とビターズで引き立てる伝統の一杯。",["ウイスキー","角砂糖","アンゴスチュラビターズ","オレンジ"],"ウイスキー45ml / 角砂糖1個 / ビターズ2dash","グラスで砂糖とビターズをなじませ、氷とウイスキーを加えてステア。"],
+["Whiskey Sour","ウイスキーサワー","ウイスキー","酸味","CLASSIC","ウイスキーにレモンの酸味と甘みを重ねた定番。",["ウイスキー","レモンジュース","シュガーシロップ"],"ウイスキー45ml / レモンジュース20ml / シュガーシロップ10ml","材料を氷とともにシェイクし、氷を入れたグラスに注ぐ。"],
+["Mint Julep","ミントジュレップ","ウイスキー","ミント","TRADITIONAL","ミントの清涼感を楽しむ、アメリカ南部の伝統的なカクテル。",["バーボンウイスキー","ミント","砂糖","水"],"バーボン60ml / ミント数枚 / 砂糖小さじ2 / 水少々","ミントと砂糖、水をグラスでなじませ、クラッシュアイスとバーボンを加える。"],
+["Sidecar","サイドカー","ブランデー","柑橘","CLASSIC","ブランデーの豊かな香りにレモンとオレンジリキュール。",["ブランデー","ホワイトキュラソー","レモンジュース"],"ブランデー30ml / ホワイトキュラソー15ml / レモンジュース15ml","材料をシェイクし、冷やしたカクテルグラスに注ぐ。"],
+["Alexander","アレキサンダー","ブランデー","クリーミー","AFTER DINNER","ブランデーとカカオ、クリームが重なるデザートカクテル。",["ブランデー","クレーム・ド・カカオ","生クリーム"],"ブランデー30ml / クレーム・ド・カカオ15ml / 生クリーム15ml","材料をシェイクし、冷やしたグラスに注ぐ。"],
+["Kir","キール","ワイン","フルーティー","APERITIF","白ワインにカシスリキュールを加えたフランスの食前酒。",["白ワイン","カシスリキュール"],"白ワイン90ml / カシスリキュール10ml","冷やしたグラスにカシスリキュールを注ぎ、白ワインを静かに加える。"],
+["Bellini","ベリーニ","スパークリングワイン","フルーティー","APERITIF","桃の香りと泡が華やかなイタリア生まれのカクテル。",["スパークリングワイン","ピーチピューレ"],"スパークリングワイン90ml / ピーチピューレ30ml","ピーチピューレをグラスに入れ、冷えたスパークリングワインを注いで混ぜる。"],
+["Aperol Spritz","アペロール・スプリッツ","リキュール","ビター","APERITIF","ほろ苦いオレンジの風味と泡を楽しむ食前酒。",["アペロール","スパークリングワイン","ソーダ","オレンジ"],"アペロール45ml / スパークリングワイン60ml / ソーダ少々","氷を入れたワイングラスに材料を注ぎ、軽く混ぜてオレンジを添える。"],
+["Grasshopper","グラスホッパー","リキュール","クリーミー","AFTER DINNER","ミントとカカオの甘く爽やかなデザートカクテル。",["グリーン・クレーム・ド・ミント","ホワイト・クレーム・ド・カカオ","生クリーム"],"各20ml","材料をシェイクし、冷やしたカクテルグラスに注ぐ。"],
+["Bramble","ブランブル","ジン","ベリー","MODERN CLASSIC","ブラックベリーの果実味とレモンの酸味が重なるモダンクラシック。",["ジン","レモンジュース","シュガーシロップ","クレーム・ド・ミュール"],"ジン45ml / レモンジュース20ml / シュガーシロップ10ml / クレーム・ド・ミュール15ml","ジン、レモン、シロップをシェイクしてクラッシュアイスに注ぎ、リキュールを垂らす。"],
+["French 75","フレンチ75","ジン","爽やか","CLASSIC","ジンとレモンにシャンパンを合わせた華やかな一杯。",["ジン","レモンジュース","シュガーシロップ","シャンパン"],"ジン30ml / レモンジュース15ml / シロップ10ml / シャンパン適量","ジン、レモン、シロップをシェイクし、フルートグラスに注いでシャンパンで満たす。"],
+["Mai Tai","マイタイ","ラム","トロピカル","TIKI","複数のラムと柑橘、オルジェーシロップを重ねるティキカクテル。",["ラム","ホワイトキュラソー","ライムジュース","オルジェーシロップ"],"ラム類合計60ml / ホワイトキュラソー15ml / ライムジュース15ml / オルジェーシロップ15ml","材料をシェイクし、クラッシュアイスを入れたグラスに注ぐ。"],
+["Sazerac","サゼラック","ライウイスキー","スパイシー","NEW ORLEANS","アブサンの香りをまとわせた、ニューオーリンズの歴史ある一杯。",["ライウイスキー","角砂糖","ペイショーズビターズ","アブサン"],"ライウイスキー50ml / 角砂糖1個 / ビターズ数dash / アブサン少量","冷やしたグラスにアブサンを回して余分を捨てる。別容器で残りをステアして注ぐ。"],
+["Aviation","アビエーション","ジン","フローラル","CLASSIC","ジンにマラスキーノとバイオレットの香りを重ねた淡い色の一杯。",["ジン","マラスキーノ","レモンジュース","クレーム・ド・バイオレット"],"ジン45ml / マラスキーノ15ml / レモン15ml / クレーム・ド・バイオレット5ml","材料をシェイクし、冷やしたカクテルグラスに注ぐ。"]
+];
+const data=recipes.map((r,i)=>({id:i+1,name:r[0],jp:r[1],base:r[2],taste:r[3],tag:r[4],desc:r[5],ingredients:r[6],amounts:r[7],method:r[8]}));
+const $=id=>document.getElementById(id);let chosen=new Set(),mode='search',applied=[];
+const bases=[...new Set(data.map(x=>x.base))].sort((a,b)=>a.localeCompare(b,'ja'));bases.forEach(x=>$('base').add(new Option(x,x)));
+const tastes=[...new Set(data.map(x=>x.taste))].sort((a,b)=>a.localeCompare(b,'ja'));tastes.forEach(x=>$('taste').add(new Option(x,x)));
+const allIng=[...new Set(data.flatMap(x=>x.ingredients))].sort((a,b)=>a.localeCompare(b,'ja'));
+function drawIngredients(){ $('ingredientList').innerHTML='';allIng.forEach(x=>{let b=document.createElement('button');b.className='ingredient'+(chosen.has(x)?' selected':'');b.textContent=(chosen.has(x)?'✓ ':'')+x;b.onclick=()=>{chosen.has(x)?chosen.delete(x):chosen.add(x);drawIngredients();$('selectedCount').textContent=chosen.size?chosen.size+' items selected':''};$('ingredientList').append(b)});}
+function render(){let q=$('q').value.trim().toLowerCase(),base=$('base').value,taste=$('taste').value,logic=document.querySelector('input[name=logic]:checked').value;
+let list=data.filter(c=>{let txt=[c.name,c.jp,c.base,c.taste,c.desc,...c.ingredients].join(' ').toLowerCase();let queryOk=!q||txt.includes(q),baseOk=!base||c.base===base,tasteOk=!taste||c.taste===taste;let ingOk=!applied.length||(logic==='all'?applied.every(x=>c.ingredients.includes(x)):applied.some(x=>c.ingredients.includes(x)));return queryOk&&baseOk&&tasteOk&&ingOk;});
+$('count').textContent=`${list.length} / ${data.length} COCKTAILS`;$('cards').innerHTML='';if(!list.length){$('cards').innerHTML='<div class="empty">条件に合うカクテルが見つかりませんでした。<br>検索語や材料を変えてみてください。</div>';return;}
+list.forEach(c=>{let el=document.createElement('article');el.className='card';let pills=c.ingredients.map(x=>`<span class="pill">${x}</span>`).join('');el.innerHTML=`<div class="top"><div><h3>${c.name}</h3><div class="jp">${c.jp} · ${c.base}ベース</div></div><span class="tag">${c.tag}</span></div><p class="desc">${c.desc}</p><div class="pills">${pills}</div><div class="meta"><b>味わい</b>　${c.taste}</div><details class="details"><summary>分量と作り方を見る</summary><p><b>分量</b><br>${c.amounts}<br><br><b>作り方</b><br>${c.method}</p></details>`;$('cards').append(el);});}
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;$('reverse').hidden=mode!=='reverse';if(mode==='search'){chosen.clear();applied=[];drawIngredients();render();}});
+$('apply').onclick=()=>{applied=[...chosen];render();$('atlas').scrollIntoView({behavior:'smooth'});};$('reset').onclick=()=>{chosen.clear();applied=[];drawIngredients();$('selectedCount').textContent='';render();};
+['q','base','taste'].forEach(id=>$(id).addEventListener(id==='q'?'input':'change',render));document.querySelectorAll('input[name=logic]').forEach(x=>x.onchange=render);
+drawIngredients();render();
+</script></body></html>
