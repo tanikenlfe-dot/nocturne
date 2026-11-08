@@ -3,7 +3,7 @@
 
 .auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.auth-grid label{display:block;color:var(--pale);font-size:12px;margin:10px 0 6px}.auth-grid input{width:100%;padding:12px;background:#11100e;border:1px solid var(--line);color:#fff;font-size:16px}.auth-grid button,.auth-action{background:var(--gold);color:#171511;border:0;padding:12px 17px;font-weight:600;cursor:pointer;margin-top:12px}.auth-action.secondary{background:transparent;color:var(--pale);border:1px solid var(--gold)}#auth-status{white-space:pre-wrap}#auth-status[data-kind=error]{color:#ffb4a6}#auth-status[data-kind=ok]{color:#b7e4bc}@media(max-width:650px){.auth-grid{grid-template-columns:1fr}}
 #profile-panel input{width:100%;padding:12px;background:#11100e;border:1px solid var(--line);color:#fff;font-size:16px;max-width:420px}#profile-status{white-space:pre-wrap}#profile-status[data-kind=error]{color:#ffb4a6}#profile-status[data-kind=ok]{color:#b7e4bc}
-</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script></head><body><header><a class="logo" href="index.html">NOCTURNE<small>COCKTAIL ATLAS</small></a><nav class="site-nav" aria-label="メインメニュー"><a href="index.html">ATLAS</a><a href="lounge.html" class="current" aria-current="page">LOUNGE</a></nav></header><main><section class="hero"><div class="eyebrow">A PLACE TO SHARE YOUR NIGHT</div><h1>LOUNGE</h1><p>一杯から始まる、もうひとつの物語。<br>カクテルを語り合う場所。</p></section><div class="notice" role="status"><strong>🌙 LOUNGE は現在準備中です。</strong><br>ログイン機能のテスト版です。投稿・いいね・コメント・ご意見送信は、まだ利用できません。</div><section class="panel" id="auth-panel" aria-label="会員ログイン"><h2>MEMBER ACCESS</h2><p>会員登録・ログイン（テスト版）。閲覧は登録不要です。投稿機能は安全性の確認後に公開します。</p><div class="auth-grid"><div><label for="email">メールアドレス</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"><label for="password">パスワード</label><input id="password" type="password" autocomplete="current-password" placeholder="8文字以上"><button id="login-btn" type="button">ログイン</button> <button id="signup-btn" class="auth-action secondary" type="button">新規登録</button><button id="logout-btn" class="auth-action secondary" type="button" hidden>ログアウト</button></div><div><p id="auth-status" role="status" aria-live="polite">接続設定待ちです。</p><p class="muted">ログイン情報はSupabaseの認証サービスへ送信されます。パスワードを他人に送らないでください。</p></div></div></section><section class="panel" id="profile-panel" hidden><h2>MY PROFILE</h2><p>投稿に表示するニックネームを登録できます（1〜30文字）。メールアドレスは公開されません。</p><label for="nickname" style="display:block;color:var(--pale);font-size:12px;margin-bottom:8px">ニックネーム</label><input id="nickname" maxlength="30" autocomplete="nickname" placeholder="ニックネームを入力"><div><button class="auth-action" id="profile-save" type="button">保存する</button></div><p id="profile-status" role="status" aria-live="polite"></p></section><h2 class="heading">EXPLORE CATEGORIES</h2><section class="categories" aria-label="投稿カテゴリー"><article class="category"><h3>🍸 カクテル紹介</h3><p>お気に入りの一杯や作ってみたカクテルを共有。</p></article><article class="category"><h3>🌙 オリジナルレシピ</h3><p>自分だけのレシピやアレンジを紹介。</p></article><article class="category"><h3>💬 質問・相談</h3><p>材料や作り方の疑問を気軽に相談。</p></article><article class="category"><h3>☕ フリートーク</h3><p>カクテルの話も、自由な雑談も。</p></article><article class="category private"><h3>📮 運営へのご意見</h3><p><strong>運営者のみ閲覧。</strong>改善要望や不具合報告を非公開で送信できる機能を準備中。</p></article></section><section class="panel"><h2>COMING SOON</h2><p>ニックネーム＋メール認証で参加できるコミュニティを準備しています。公開投稿は誰でも閲覧でき、会員は写真・文章の投稿、いいね、コメント、1段階の返信ができる予定です。</p><div class="features"><span class="feature">写真・文章の投稿</span><span class="feature">即時公開</span><span class="feature">いいね</span><span class="feature">コメント＋返信</span><span class="feature">通報・運営管理</span></div><p class="muted">月間ランキングと特典は後日の実装を予定しています。</p></section></main><footer>NOCTURNE COCKTAIL ATLAS · FREE TO EXPLORE · DRINK RESPONSIBLY</footer><script>
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><style>.post-form{display:grid;gap:12px}.post-form label{font-size:12px;color:var(--pale)}.post-form input,.post-form textarea,.post-form select{width:100%;margin-top:6px;padding:12px;background:#100f0d;border:1px solid var(--line);color:#f2eee6;border-radius:2px;font:inherit}.post-form button,.post-card button{padding:12px 16px;background:var(--gold);color:#17130d;border:0;font-weight:700;cursor:pointer}.post-form button:disabled{opacity:.5}.post-card{border:1px solid var(--line);padding:18px;background:var(--surface);margin:12px 0;overflow-wrap:anywhere}.post-card h3{color:var(--pale);margin:10px 0}.post-card p{white-space:pre-wrap;line-height:1.8;font-size:13px}.post-meta{color:var(--muted);font-size:11px}.post-card button{background:transparent;border:1px solid var(--line);color:var(--pale);font-size:11px;padding:7px 12px;margin-top:8px}.post-msg{font-size:12px;color:var(--pale)}</style></head><body><header><a class="logo" href="index.html">NOCTURNE<small>COCKTAIL ATLAS</small></a><nav class="site-nav" aria-label="メインメニュー"><a href="index.html">ATLAS</a><a href="lounge.html" class="current" aria-current="page">LOUNGE</a></nav></header><main><section class="hero"><div class="eyebrow">A PLACE TO SHARE YOUR NIGHT</div><h1>LOUNGE</h1><p>一杯から始まる、もうひとつの物語。<br>カクテルを語り合う場所。</p></section><div class="notice" role="status"><strong>🌙 LOUNGE は現在準備中です。</strong><br>ログイン機能のテスト版です。投稿・いいね・コメント・ご意見送信は、まだ利用できません。</div><section class="panel" id="auth-panel" aria-label="会員ログイン"><h2>MEMBER ACCESS</h2><p>会員登録・ログイン（テスト版）。閲覧は登録不要です。投稿機能は安全性の確認後に公開します。</p><div class="auth-grid"><div><label for="email">メールアドレス</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"><label for="password">パスワード</label><input id="password" type="password" autocomplete="current-password" placeholder="8文字以上"><button id="login-btn" type="button">ログイン</button> <button id="signup-btn" class="auth-action secondary" type="button">新規登録</button><button id="logout-btn" class="auth-action secondary" type="button" hidden>ログアウト</button></div><div><p id="auth-status" role="status" aria-live="polite">接続設定待ちです。</p><p class="muted">ログイン情報はSupabaseの認証サービスへ送信されます。パスワードを他人に送らないでください。</p></div></div></section><section class="panel" id="profile-panel" hidden><h2>MY PROFILE</h2><p>投稿に表示するニックネームを登録できます（1〜30文字）。メールアドレスは公開されません。</p><label for="nickname" style="display:block;color:var(--pale);font-size:12px;margin-bottom:8px">ニックネーム</label><input id="nickname" maxlength="30" autocomplete="nickname" placeholder="ニックネームを入力"><div><button class="auth-action" id="profile-save" type="button">保存する</button></div><p id="profile-status" role="status" aria-live="polite"></p></section><h2 class="heading">EXPLORE CATEGORIES</h2><section class="categories" aria-label="投稿カテゴリー"><article class="category"><h3>🍸 カクテル紹介</h3><p>お気に入りの一杯や作ってみたカクテルを共有。</p></article><article class="category"><h3>🌙 オリジナルレシピ</h3><p>自分だけのレシピやアレンジを紹介。</p></article><article class="category"><h3>💬 質問・相談</h3><p>材料や作り方の疑問を気軽に相談。</p></article><article class="category"><h3>☕ フリートーク</h3><p>カクテルの話も、自由な雑談も。</p></article><article class="category private"><h3>📮 運営へのご意見</h3><p><strong>運営者のみ閲覧。</strong>改善要望や不具合報告を非公開で送信できる機能を準備中。</p></article></section><section class="panel"><h2>COMING SOON</h2><p>ニックネーム登録後に文章を投稿できます。公開投稿は誰でも閲覧でき、会員は写真・文章の投稿、いいね、コメント、1段階の返信ができる予定です。</p><div class="features"><span class="feature">写真・文章の投稿</span><span class="feature">即時公開</span><span class="feature">いいね</span><span class="feature">コメント＋返信</span><span class="feature">通報・運営管理</span></div><p class="muted">月間ランキングと特典は後日の実装を予定しています。</p></section><section class="panel" id="post-compose" hidden><h2>NEW POST · 投稿する</h2><p>テスト運用中：文章の投稿ができます。投稿は誰でも閲覧できます。個人情報は書かないでね。</p><form id="post-form" class="post-form"><label>カテゴリー<select id="post-category" required><option>カクテル紹介</option><option>オリジナルレシピ</option><option>質問・相談</option><option>フリートーク</option></select></label><label>タイトル<input id="post-title" maxlength="100" required placeholder="タイトルを入力"></label><label>本文<textarea id="post-body" maxlength="5000" rows="6" required placeholder="内容を入力"></textarea></label><button id="post-submit" type="submit">投稿を公開する</button><div id="post-message" class="post-msg" role="status"></div></form></section><section class="panel" id="posts-panel"><h2>RECENT POSTS · 新着投稿</h2><p>投稿はログインしなくても読めるよ。</p><button id="posts-refresh" type="button" style="background:transparent;border:1px solid var(--gold);color:var(--pale);padding:10px 16px">更新する</button><p id="posts-status" role="status" class="muted">読み込み中…</p><div id="posts-list"></div></section></main><footer>NOCTURNE COCKTAIL ATLAS · FREE TO EXPLORE · DRINK RESPONSIBLY</footer><script>
 // 公開用キーだけを入力してください。secret / service_role キーは絶対に使用しないでください。
 const SUPABASE_URL = 'https://hollghyrpsezzqksqjvf.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_gg_CbfLcDzOrfeym1BaVgw_EDmv-8fs';
@@ -39,6 +39,7 @@ window.addEventListener('load', async () => {
      else if(profile){nickname.value=profile.nickname;profileStatus.textContent='登録済みのニックネームです。変更もできます。';profileStatus.dataset.kind='ok';}
      else{nickname.value='';profileStatus.textContent='ニックネームを登録してください。';profileStatus.dataset.kind='';}
    }
+   compose.hidden=!user;
    login.hidden=!!user;signup.hidden=!!user;logout.hidden=!user;
    email.disabled=!!user;password.disabled=!!user;
    if(error && error.name!=='AuthSessionMissingError'){show('認証確認に失敗しました: '+error.message,'error');return;}
@@ -68,10 +69,65 @@ window.addEventListener('load', async () => {
    profileStatus.textContent=error?'保存に失敗しました: '+error.message:'ニックネームを保存しました！';
    profileStatus.dataset.kind=error?'error':'ok';
  });
+
+ // Public post feed: safe text rendering (no user-supplied HTML).
+ const compose=document.getElementById('post-compose');
+ const postForm=document.getElementById('post-form');
+ const postMessage=document.getElementById('post-message');
+ const postSubmit=document.getElementById('post-submit');
+ const postsList=document.getElementById('posts-list');
+ const postsStatus=document.getElementById('posts-status');
+ const loadPosts=async()=>{
+   postsStatus.textContent='読み込み中…';postsList.replaceChildren();
+   const {data,error}=await client.from('lounge_posts').select('id,user_id,category,title,body,created_at').order('created_at',{ascending:false}).limit(30);
+   if(error){postsStatus.textContent='投稿を読み込めませんでした: '+error.message;return;}
+   if(!data?.length){postsStatus.textContent='まだ投稿はありません。';return;}
+   const ids=[...new Set(data.map(p=>p.user_id))];
+   const {data:profiles}=await client.from('profiles').select('id,nickname').in('id',ids);
+   const names=new Map((profiles||[]).map(p=>[p.id,p.nickname]));
+   postsStatus.textContent=data.length+'件の投稿を表示しています（最新30件まで）';
+   for(const p of data){
+     const article=document.createElement('article');article.className='post-card';
+     const meta=document.createElement('div');meta.className='post-meta';
+     meta.textContent=p.category+' · '+(names.get(p.user_id)||'会員')+' · '+new Date(p.created_at).toLocaleString('ja-JP');
+     const title=document.createElement('h3');title.textContent=p.title;
+     const body=document.createElement('p');body.textContent=p.body;
+     article.append(meta,title,body);
+     if(currentUser?.id===p.user_id){
+       const del=document.createElement('button');del.type='button';del.textContent='自分の投稿を削除';
+       del.addEventListener('click',async()=>{
+         if(!confirm('この投稿を削除しますか？'))return;
+         del.disabled=true;
+         const {error}=await client.from('lounge_posts').delete().eq('id',p.id).eq('user_id',currentUser.id);
+         if(error){alert('削除できませんでした: '+error.message);del.disabled=false;}else await loadPosts();
+       });article.append(del);
+     }
+     postsList.append(article);
+   }
+ };
+ document.getElementById('posts-refresh').addEventListener('click',loadPosts);
+ postForm.addEventListener('submit',async e=>{
+   e.preventDefault();
+   if(!currentUser){postMessage.textContent='ログインしてください。';return;}
+   const {data:profile,error:profileError}=await client.from('profiles').select('id').eq('id',currentUser.id).maybeSingle();
+   if(profileError||!profile){postMessage.textContent='先にMY PROFILEでニックネームを保存してください。';return;}
+   const category=document.getElementById('post-category').value;
+   const title=document.getElementById('post-title').value.trim();
+   const body=document.getElementById('post-body').value.trim();
+   if(!title||title.length>100||!body||body.length>5000){postMessage.textContent='タイトルと本文を確認してください。';return;}
+   postSubmit.disabled=true;postMessage.textContent='投稿中…';
+   const {error}=await client.from('lounge_posts').insert({user_id:currentUser.id,category,title,body});
+   postSubmit.disabled=false;
+   if(error){postMessage.textContent='投稿に失敗しました: '+error.message;return;}
+   postMessage.textContent='投稿しました！';postForm.reset();await loadPosts();
+ });
+ const oldUpdate=update;
+
  login.addEventListener('click',()=>action('login'));
  signup.addEventListener('click',()=>action('signup'));
  logout.addEventListener('click',async()=>{const {error}=await client.auth.signOut();if(error)show(error.message,'error');else await update();});
  client.auth.onAuthStateChange(()=>{setTimeout(update,0);});
  await update();
+ await loadPosts();
 });
 </script></body></html>
