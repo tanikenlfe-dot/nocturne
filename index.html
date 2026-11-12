@@ -32,6 +32,8 @@ footer{text-align:center;border-top:1px solid #ffffff18;padding:25px;color:#847d
 
 /* Recipe-specific lightweight illustrated cocktail images (not photographs) */
 .cocktail-art{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;margin:0 0 15px;border:1px solid #4a3d28;background:#17140f;border-radius:3px}
+/* 写真風画像は縦長の全体を表示し、上下を切り取らない */
+.cocktail-art[src^="images/"]{aspect-ratio:3/5;object-fit:contain;}
 .card{overflow:hidden}.image-note{font-size:9px;color:var(--muted);margin:-9px 0 12px;letter-spacing:.04em}
 </style></head>
 <body>
